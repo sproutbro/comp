@@ -1,7 +1,6 @@
 
 export class Router {
 
-    app: HTMLElement = document.getElementById("app")!
     private dispatch: Dispatch
 
     constructor(dispatch: Dispatch) {
@@ -14,7 +13,7 @@ export class Router {
     }
 
     navigate(path: string, push = true) {
-
+        
         if (push) history.pushState({}, "", path)
 
         this.dispatch({

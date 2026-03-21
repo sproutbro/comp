@@ -1,24 +1,11 @@
-import { createAside } from "./aside"
 import { createHeader } from "./header"
-import { createIcons } from "./icons"
-import { createLinks } from "./links"
-import { createMain } from "./main"
-import { createModal } from "./modal"
 
-export class Components {
+export class HeaderComponents {
 
-    private components = new Map<string, () => Component>()
+    private headers = new Map<string, () => Component>()
 
     constructor() {
-
-        this.components.set("Header", createHeader)
-        this.components.set("Aside", createAside)
-        this.components.set("Main", createMain)
-        this.components.set("Modal", createModal)
-
-        this.components.set("Links", createLinks)
-        this.components.set("Icons", createIcons)
-
+        this.headers.set("Header", createHeader)
     }
 
     mount(root: HTMLElement) {
@@ -28,7 +15,7 @@ export class Components {
             if ((el as any).__component__) return
 
             const name = el.getAttribute("data-component")!
-            const factory = this.components.get(name)
+            const factory = this.headers.get(name)
 
             if (!factory) return
 
@@ -38,24 +25,29 @@ export class Components {
 
                 ; (el as any).__component__ = instance
         })
+
     }
 
     update(root: HTMLElement, state: AppState) {
+
         root.querySelectorAll("[data-component]").forEach(el => {
             const instance = (el as any).__component__
             if (!instance) return
 
             instance.update(state)
         })
+
     }
 
     unmount(root: HTMLElement) {
+
         root.querySelectorAll("[data-component]").forEach(el => {
             const instance = (el as any).__component__
             if (!instance?.unmount) return
 
             instance.unmount()
         })
+
     }
 }
 

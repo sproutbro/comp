@@ -1,67 +1,65 @@
-import { dispatch } from "../main"
-import { createIconButton } from "./common"
+
+import { dispatch } from '../main'
+import { createAnchor, h } from '../pkg'
 
 export function createModal(): Component {
     let root: HTMLElement
-    let container: HTMLElement
-    let body: HTMLElement
 
     return {
         mount(el) {
             root = el
-
             root.className = "layer hidden"
 
-            container = document.createElement("div")
-            container.className = "modal"
+            const modal = h("div", { class: "modal" })
 
-            const header = document.createElement("div")
-            header.className = "modal-header"
+            const header = h("div", { class: "modal-header" })
 
-            const button = createIconButton("close")
-
-            button.addEventListener("click", () => {
+            const closeButton = h("button", { class: "material-icons" }, "close")
+            closeButton.addEventListener("click", () => {
                 dispatch({
                     type: "SET_MODAL",
-                    modal: null
+                    modal: null,
                 })
             })
-            header.append(button)
+            header.append(closeButton)
 
-            body = document.createElement("div")
-            body.className = "modal-body"
+            const body = h("div", { class: "modal-body" })
 
-            container.append(header, body)
-            root.append(container)
+            const kakaButton = createAnchor("/auth/kakao", "")
+            kakaButton.append(
+                h("span", { class: "icon" }, "K"),
+                h("span", {}, "Continue with Kakao")
+            )
+            kakaButton.className = "btn kakao"
+
+            const googleButton = createAnchor("/auth/google", "")
+            googleButton.append(
+                h("span", { class: "icon" }, "G"),
+                h("span", {}, "Continue with Google")
+            )
+            googleButton.className = "btn google"
+
+            const div = h("div", { class: "social-login" })
+            div.append(kakaButton, googleButton)
+            body.append(div)
+
+            modal.append(header, body)
+            root.append(modal)
+
         },
 
         update(state) {
 
-            const modal = state.ui.modal
-
-            switch (modal) {
+            switch (state.ui.modal) {
                 case "login":
-                    root.className = "layer"
-                    body.innerHTML = loginContent
+                    root.className = "layer "
                     break;
-
-                default:
+                case null:
                     root.className = "layer hidden"
                     break;
             }
-        }
+
+        },
     }
+
 }
-
-const loginContent = `
-    <div class="social-login">
-        <a href="/auth/kakao" class="btn kakao">
-            <span class="icon">K</span>
-            <span>Continue with Kakao</span>
-        </a>
-
-        <a href="/auth/google" class="btn google">
-            <span class="icon">G</span>
-            <span>Continue with Google</span>
-        </a>
-    </div>`

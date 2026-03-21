@@ -1,48 +1,44 @@
 import { dispatch } from "../main"
-import { createIconButton } from "./common"
+import { h } from "../pkg"
 
 export function createIcons(): Component {
     let root: HTMLElement
-    let themeSpan: HTMLElement
+    let themeButton: HTMLElement
 
     return {
         mount(el) {
             root = el
 
-            root.className = "icons"
+            root.className = "items"
 
-            const themeButton = createIconButton("")
-            themeSpan = themeButton.querySelector("span") as HTMLElement
+            themeButton = h("button", { class: "material-icons" })
 
-            themeButton.addEventListener("click", () => {
+            const loginModal = h("button", { class: "material-icons" }, "login")
 
-                const current = document.body.dataset.theme as "dark" | "light"
-                const next = current === "dark" ? "light" : "dark"
-
-                dispatch({
-                    type: "TOGGLE_THEME",
-                    theme: next
-                })
-            })
-
-            const modalButton = createIconButton("login")
-            modalButton.addEventListener("click", () => {
+            loginModal.addEventListener("click", () => {
                 dispatch({
                     type: "SET_MODAL",
                     modal: "login"
                 })
             })
 
-            root.append(themeButton, modalButton)
+            root.append(themeButton, loginModal)
         },
 
         update(state) {
+
             const theme = state.ui.theme
             const next = theme === "dark" ? "light" : "dark"
 
-            themeSpan.textContent = next + "_mode"
-
+            themeButton.textContent = next + "_mode"
             document.body.dataset.theme = theme
-        }
+
+            themeButton.addEventListener("click", () => {
+                dispatch({
+                    type: "TOGGLE_THEME",
+                    theme: next
+                })
+            })
+        },
     }
 }
