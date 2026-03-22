@@ -1,4 +1,5 @@
-import { h } from "@/shared/h"
+
+import { h } from "../../shared/h"
 import type { Post } from "./types"
 
 type Props = {

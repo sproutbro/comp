@@ -1,5 +1,4 @@
 
-
 export class Store<S, A> {
 
     private state: S

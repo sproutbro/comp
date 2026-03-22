@@ -1,6 +1,7 @@
-import { h } from "@/shared/h"
+
 import type { PostLayoutProps } from "./types"
 import { PostList } from "./PostList"
+import { h } from "../../shared/h"
 
 
 export function PostLayout({

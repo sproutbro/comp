@@ -1,18 +1,19 @@
 
-import { store } from "@/shared/createStore"
-
+import { router } from "../../shared/router"
 import { PostLayout } from "./PostLayout"
-import { router } from "@/shared/router"
 
-export function PostFeature() {
+
+export function PostFeature(store: Store) {
     const state = store.get().post
 
     function handleClickPost(id: number) {
         router.navigate(`/posts/${id}`)
+        // router.navigate(`/posts/${id}`)
     }
 
     function handleLoadMore() {
         store.dispatch({ type: "LOAD_MORE" })
+        // store.dispatch({ type: "LOAD_MORE" })
     }
 
     return PostLayout({

@@ -1,6 +1,7 @@
-import { h } from "@/shared/h"
+
 import type { Post } from "./types"
 import { PostItem } from "./PostItem"
+import { h } from "../../shared/h"
 
 type Props = {
     posts: Post[]
