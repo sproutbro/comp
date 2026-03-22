@@ -18,3 +18,5 @@ type PostState = {
     loading: boolean
     error: string | null
 }
+
+type H = (tag: string, props?: Record<string, any>, ...children: any[]) => HTMLElement

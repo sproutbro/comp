@@ -9,7 +9,6 @@ export function PostFeature() {
 
     function handleClickPost(id: number) {
         router.navigate(`/posts/${id}`)
-        // router.navigate(`/posts/${id}`)
     }
 
     function handleAdd() {
