@@ -1,11 +1,7 @@
 
 export class Router {
 
-    private dispatch: Dispatch
-
-    constructor(dispatch: Dispatch) {
-
-        this.dispatch = dispatch
+    constructor() {
 
         window.addEventListener("popstate", () => {
             this.navigate(location.pathname, false)
@@ -16,13 +12,7 @@ export class Router {
 
         if (push) history.pushState({}, "", path)
 
-        const res = this.resolveRoute(path)
-
-        this.dispatch({
-            type: "NAVIGATE",
-            path: res.path,
-            params: res.params
-        })
+        return this.resolveRoute(path)
     }
 
     resolveRoute(path: string) {
@@ -45,3 +35,5 @@ export class Router {
     }
 
 }
+
+export const router = new Router()

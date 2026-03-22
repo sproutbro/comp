@@ -1,5 +1,4 @@
-type Reducer<S, A> = (state: S, action: A) => S
-type Listener = () => void
+
 
 export class Store<S, A> {
 
