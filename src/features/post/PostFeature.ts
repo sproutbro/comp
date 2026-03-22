@@ -1,9 +1,10 @@
 
+import { store } from "../../main"
 import { router } from "../../shared/router"
+import { loadMore } from "./post.actions"
 import { PostLayout } from "./PostLayout"
 
-
-export function PostFeature(store: Store) {
+export function PostFeature() {
     const state = store.get().post
 
     function handleClickPost(id: number) {
@@ -11,9 +12,12 @@ export function PostFeature(store: Store) {
         // router.navigate(`/posts/${id}`)
     }
 
+    function handleAdd() {
+        store.dispatch({ type: "ADD_POST" })
+    }
+
     function handleLoadMore() {
-        store.dispatch({ type: "LOAD_MORE" })
-        // store.dispatch({ type: "LOAD_MORE" })
+        loadMore()
     }
 
     return PostLayout({
@@ -21,6 +25,7 @@ export function PostFeature(store: Store) {
         loading: state.loading,
         hasMore: state.hasMore,
         onClickPost: handleClickPost,
-        onLoadMore: handleLoadMore
+        onLoadMore: handleLoadMore,
+        onAdd: handleAdd
     })
 }

@@ -8,7 +8,10 @@ type Props = {
     onClickPost: (id: number) => void
 }
 
-export function PostList({ posts, onClickPost }: Props) {
+export function PostList({
+    posts,
+    onClickPost
+}: Props) {
     return h("div", {},
         ...posts.map(post =>
             PostItem({ post, onClickPost })

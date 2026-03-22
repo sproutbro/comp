@@ -1,12 +1,32 @@
-import type { PostAction } from "./types"
-import type { PostState } from "./types"
+import type { PostState, PostAction } from "./types"
+
+export const initialPostState: PostState = {
+    posts: [
+        { id: 1, title: "첫 글", content: "" },
+        { id: 2, title: "두번째글 글", content: "ㅇㄹ너ㅑㅐㄴㅇ" },
+
+    ],
+    page: 1,
+    hasMore: true,
+    loading: false,
+    error: null
+}
 
 export function postReducer(
-    state: PostState,
+    state: PostState = initialPostState,
     action: PostAction
 ): PostState {
 
     switch (action.type) {
+        case "ADD_POST":
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    { id: Date.now(), title: "새 글", content: "ㅇㅇ" }
+                ]
+            }
+
         case "LOAD_MORE":
             return { ...state, loading: true }
 

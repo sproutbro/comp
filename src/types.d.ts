@@ -18,7 +18,3 @@ type PostState = {
     loading: boolean
     error: string | null
 }
-
-type Router = Router
-
-type Store = Store<S, A>

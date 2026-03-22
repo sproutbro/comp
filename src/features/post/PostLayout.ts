@@ -1,5 +1,5 @@
 
-import type { PostLayoutProps } from "./types"
+import type { Post, PostLayoutProps } from "./types"
 import { PostList } from "./PostList"
 import { h } from "../../shared/h"
 
@@ -9,7 +9,7 @@ export function PostLayout({
     loading,
     hasMore,
     onClickPost,
-    onLoadMore
+    onLoadMore,
 }: PostLayoutProps) {
 
     return h("div", {},

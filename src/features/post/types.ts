@@ -13,6 +13,7 @@ export type PostState = {
 }
 
 export type PostAction =
+    | { type: "ADD_POST" }
     | { type: "LOAD_MORE" }
     | { type: "LOAD_MORE_SUCCESS"; payload: Post[] }
     | { type: "LOAD_MORE_ERROR"; error: string }
@@ -23,4 +24,5 @@ export type PostLayoutProps = {
     hasMore: boolean
     onClickPost: (id: number) => void
     onLoadMore: () => void
+    onAdd: () => void
 }

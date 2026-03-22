@@ -3,13 +3,13 @@ import { initialState } from "./shared/initialState";
 import { rootReducer } from "./shared/rootReducer";
 import { Store } from "./shared/store";
 
-const store = new Store(initialState, rootReducer)
+export const store = new Store(initialState, rootReducer)
 
-const root = document.getElementById("app")!
+export const root = document.getElementById("app")!
 
 function render() {
     root.innerHTML = ""
-    root.appendChild(PostFeature(store))
+    root.appendChild(PostFeature())
 }
 
 render()
