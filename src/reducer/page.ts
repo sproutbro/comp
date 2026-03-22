@@ -5,7 +5,8 @@ export function page(state: PageState, action: Action): PageState {
 
             return {
                 ...state,
-                path: action.path
+                path: action.path,
+                params: action.params
             }
 
         default:

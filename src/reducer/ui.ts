@@ -13,6 +13,12 @@ export function ui(state: UIState, action: Action): UIState {
                 theme: action.theme
             }
 
+        case "SET_LOADING":
+            return {
+                ...state,
+                loading: action.value
+            }
+
         default:
             return state
     }

@@ -43,18 +43,6 @@ a {
     color: var(--text);
 }
 
-.material-icons {
-    width: 48px;
-    height: 48px;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-}
-
-.material-icons:hover {
-    background: var(--hover);
-}
-
 button {
     cursor: pointer;
     background: none;

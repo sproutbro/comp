@@ -2,18 +2,18 @@ import { createAside } from "./aside"
 import { createHeader } from "./header"
 import { createIcons } from "./icons"
 import { createLinks } from "./links"
-import { createMain } from "./main"
+import { createPage } from "./page"
 import { createModal } from "./modal"
 
 export class Components {
 
-    private components = new Map<string, () => Component>()
+    components = new Map<string, () => Component>()
 
     constructor() {
 
         this.components.set("Header", createHeader)
         this.components.set("Aside", createAside)
-        this.components.set("Main", createMain)
+        this.components.set("Page", createPage)
         this.components.set("Modal", createModal)
 
         this.components.set("Links", createLinks)

@@ -1,5 +1,36 @@
+import { dispatch } from "../main"
 
 type Props = Record<string, any>
+
+export async function fetchPosts() {
+
+    const res = await fetch(`http://localhost:8080/posts`).then(r => r.json())
+
+    if (!res.success) {
+        console.warn(res.error)
+        return
+    }
+
+    const data: Post[] = res.data
+
+    dispatch({ type: "SET_POSTS", posts: data })
+}
+
+export async function fetchPost(id?: string) {
+
+    if (!id) return
+
+    const res = await fetch(`http://localhost:8080/posts/${id}`).then(r => r.json())
+
+    if (!res.success) {
+        console.warn(res.error)
+        return
+    }
+
+    const data: Post = res.data
+
+    dispatch({ type: "SET_POST", selectedPost: data })
+}
 
 export function h(
     tag: string,
