@@ -1,12 +1,23 @@
-import type { UIState } from "./feature/ui/types"
-
 type Component = {
     mount: (target: HTMLElement) => void
     update: (state: any) => void
     unmount?: () => void
 }
 
+type PageType = "home" | "posts" | "editor"
+
+type Action =
+    | { type: "ROUTE_CHANGED", route: RouteState }
 
 type AppState = {
-    ui: UIState
+    page: PageState
+}
+
+type Route = {
+
+}
+
+type PageState = {
+    page: PageType
+    params?: Record<string, string>
 }
