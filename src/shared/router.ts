@@ -5,7 +5,7 @@ export class Router {
     constructor() {
         this.currentPath = location.pathname
         window.addEventListener("popstate", () => {
-            this.resolve(location.pathname)
+            this.navigate(location.pathname)
         })
     }
 
@@ -33,14 +33,6 @@ export class Router {
         this.currentPath = path
 
         history.pushState(null, "", path)
-
-        return this.resolve(path)
-    }
-
-    resolve(path: string) {
-        return path.
-            split("/").
-            slice(1).
-            filter(Boolean)
+        return true
     }
 }

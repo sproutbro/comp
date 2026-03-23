@@ -4,20 +4,15 @@ type Component = {
     unmount?: () => void
 }
 
-type PageType = "home" | "posts" | "editor"
-
-type Action =
-    | { type: "ROUTE_CHANGED", route: RouteState }
-
 type AppState = {
     page: PageState
+    ui: UIState
 }
 
-type Route = {
+type Action =
+    | PageAction
+    | UIAction
+    | PostAction
 
-}
 
-type PageState = {
-    page: PageType
-    params?: Record<string, string>
-}
+

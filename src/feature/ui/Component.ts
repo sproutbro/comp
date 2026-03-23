@@ -1,96 +1,72 @@
-type UIState = {
-    modal: {
-        open: boolean
-        title?: string
-        content?: string
-    }
-}
+import { dispatch } from '../../main'
+import rawModal from './template.html?raw'
 
 export class ModalRoot {
-    private app: HTMLElement
 
-    private modal: HTMLElement
-    private currentOpen = false
+    private el!: HTMLElement
+    private currentOpen: ModalType = null
 
-    constructor(app: HTMLElement) {
-
-        this.app = app
-
-        const button = document.createElement("button")
-        button.textContent = "모달"
-        app.append(button)
-
-        this.modal = document.createElement("div")
-
-        this.mount()
-    }
+    private tpl!: HTMLTemplateElement
 
     mount() {
 
-        console.log(this.app)
+        // 1. 클래스 템플릿 생성
+        this.tpl = document.createElement("template")
+        this.tpl.id = "modal-template"
 
-        // this.el = document.createElement("div")
-        // target.appendChild(this.el)
+        // 2. import 한 HTML 문자타입 ELEMENT 만들고 템플릿에 추가
+        const div = document.createElement("div")
+        div.innerHTML = rawModal
+        this.tpl.content.append(...div.childNodes)
 
+        // 3. target HTML 생성
+        this.el = document.createElement("div")
+        document.body.appendChild(this.el)
+
+        // 4. 스타일 head 추가
         this.injectStyle()
+
+        // 5. 템플릿 이벤트 바인딩 한번과 unmount 신경써야함
+        this.bind()
     }
 
     update(ui: UIState) {
-        const modal = ui.modal
-
-        console.log(modal)
         // 변화 없으면 스킵
-        if (this.currentOpen === modal.open) return
-        this.currentOpen = modal.open
+        if (this.currentOpen === ui.modal) return
+        this.currentOpen = ui.modal
 
-        if (!modal.open) {
-            this.el.innerHTML = ""
+        if (!ui.modal) {
+            this.el.replaceChildren()
             return
         }
 
-        const node = this.render(modal)
-        // this.el.innerHTML = ""
-        // this.el.appendChild(node)
-
-        this.bind(node)
+        const node = this.render()
+        this.el.replaceChildren(node)
     }
 
-    private render(modal: UIState["modal"]) {
-        const tpl = document.getElementById("modal-template") as HTMLTemplateElement
-        const node = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement
+    private render() {
 
+        const node = this.tpl.content.firstElementChild?.cloneNode(true) as HTMLElement
 
-        node.querySelector("[data-title]")!.textContent = modal.title ?? ""
-        node.querySelector("[data-content]")!.textContent = modal.content ?? ""
+        node.querySelector("[data-title]")!.textContent = "ddd"
+        node.querySelector("[data-content]")!.textContent = "dsjfiosd"
 
         return node
     }
 
-    private bind(node: HTMLElement) {
-        node.querySelector("[data-close]")!
-            .addEventListener("click", () => {
-                this.close()
-            })
+    private bind() {
 
-        node.querySelector(".m-backdrop")!
-            .addEventListener("click", () => {
-                this.close()
-            })
-    }
+        document.addEventListener("click", (e) => {
+            const ds = (e.target as HTMLElement).dataset
 
+            switch (ds.action) {
+                case "MODAL_LOGIN":
+                    return dispatch({ type: "OPEN_MODAL", modal: "login" })
 
-    open(data: { title?: string; content?: string }) {
-        this.update({
-            modal: {
-                open: true,
-                title: data.title,
-                content: data.content
+                case "CLOSE_MODAL":
+                    return dispatch({ type: "CLOSE_MODAL" })
             }
         })
-    }
-
-    close() {
-        this.update({ modal: { open: false } })
     }
 
     private injectStyle() {
