@@ -1,11 +1,15 @@
+type Reducer<S, A> = (state: S, action: A) => S
+
+type Listener = () => void
+
 export class Store<S, A> {
 
-    private state: S
     private reducer: Reducer<S, A>
+    private state: S
     private listeners = new Set<Listener>()
 
-    constructor(initialState: S, reducer: Reducer<S, A>) {
-        this.state = initialState
+    constructor(init: S, reducer: Reducer<S, A>) {
+        this.state = init
         this.reducer = reducer
     }
 
@@ -14,19 +18,18 @@ export class Store<S, A> {
     }
 
     dispatch(action: A) {
+
         const prev = this.state
-        const next = this.reducer(prev, action)
+        const next = this.reducer(this.state, action)
 
         if (prev === next) return
 
         this.state = next
-
         this.listeners.forEach(l => l())
     }
 
-    subscribe(listener: Listener) {
-        this.listeners.add(listener)
-        return () => this.listeners.delete(listener)
+    subscribe(fn: Listener) {
+        this.listeners.add(fn)
+        return () => this.listeners.delete(fn)
     }
-
 }
