@@ -24,9 +24,20 @@ export class Store {
         const next = this.reducer(prev, action)
 
         console.log("2. STORE REDUCER")
-        console.log({ ui: prev.ui === next.ui })
-        console.log({ data: prev.data === next.data })
-        console.log({ page: prev.page === next.page })
+
+        if (prev.ui !== next.ui) {
+            console.log("UI 상태 변함",
+                prev.ui, next.ui)
+        }
+        if (prev.data !== next.data) {
+            console.log("DATA 상태 변함",
+                prev.data, next.data)
+        }
+
+        if (prev.page !== next.page) {
+            console.log("페이지 상태 변함",
+                prev.page, next.page)
+        }
 
         if (prev === next) return
 

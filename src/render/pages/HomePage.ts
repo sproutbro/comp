@@ -1,5 +1,11 @@
-function HomePage() {
+export function HomePage() {
 
-    const main = document.querySelector("main")
+    console.log(
+        "MAIN 페이지 랜더"
+    )
+
+    return {
+        type: "HomePage"
+    }
 
 }

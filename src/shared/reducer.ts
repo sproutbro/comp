@@ -1,44 +1,18 @@
-import { PostDetailPage } from "../feature/pages/components/postDetail"
+import { uiReducer } from "../components/reducer"
+import { dataReducer } from "../effact/reducer"
+import { pageReducer } from "../render/reducer"
 
 export function reducer(
     state: State,
     action: Action
 ): State {
-    switch (action.type) {
-        case "CLICK_POSTS_PAGE":
 
-            return {
-                ...state,
-                page: pageReducer(state.page, action),
-            }
-
-        case "SET_POST_LIST":
-            return {
-                ...state,
-
-            }
-        default:
-            return state
+    return {
+        page: pageReducer(state.page, action),
+        ui: uiReducer(state.ui, action),
+        data: dataReducer(state.data, action)
     }
 
 }
 
-function uiReducer(state: UIState, action: UIAction) {
-    return state
-}
 
-
-function pageReducer(state: PageState, action: PostAction): PageState {
-    switch (action.type) {
-        case "CLICK_POSTS_PAGE":
-            return {
-                ...state,
-                type: "posts",
-                page: action.page
-            }
-
-        default:
-            break;
-    }
-    return state
-}

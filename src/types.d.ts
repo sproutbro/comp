@@ -35,10 +35,6 @@ type PageState =
     | { type: "about" }
     | { type: "editor" }
 
-type DataState = {
-    postList: Post[]
-    postDetail: Record<number, Post>
-}
 
 type UIState = {
     modal: ModalType
@@ -49,6 +45,11 @@ type UIState = {
 // ==========================================
 //! [EFFECT ACTION | STATE | TYPE]
 // ==========================================
+
+type DataState = {
+    postList: Post[]
+    selectPost: Post | null
+}
 
 type Post = {
     id: number

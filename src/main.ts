@@ -1,4 +1,4 @@
-import { handleEffect } from "./render/effact";
+import { handleEffect } from "./effact/effact";
 import { render } from "./render/render";
 import { reducer } from "./shared/reducer";
 import { Router } from "./shared/router";
@@ -10,7 +10,7 @@ import { Store } from "./shared/store";
 // ==========================================
 const initState: State = {
     ui: { loading: false, modal: null, theme: "dark" },
-    data: { postList: [], postDetail: {} },
+    data: { postList: [], selectPost: null },
     page: { type: "home" }
 }
 
@@ -21,7 +21,6 @@ store.subscribe(() => {
     const state = store.get()
 
     console.log("3. SUBSCRIBE RENDER")
-    console.log({ "PREVPAGE": prevPage })
 
     render(state.page, state)
 })
@@ -34,8 +33,7 @@ store.subscribe(() => {
         prevPage = state.page
     }
 
-    console.log("4. SUBSCRIBE EFFECT")
-    console.log({ "PREVPAGE": prevPage })
+    console.log("3. SUBSCRIBE EFFECT")
 })
 
 export function dispatch(action: Action) {
@@ -53,4 +51,4 @@ const router = new Router()
 
 router.resolve()
 
-dispatch({ type: "CLICK_POSTS_PAGE", page: 0 })
+dispatch({ type: "CLICK_POST_PAGE", page: 0 })

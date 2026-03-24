@@ -8,7 +8,7 @@ export function handleEffect(page: PageState, state: State | null) {
     }
 
     if (page.type === "detail") {
-        if (!state?.data.postDetail[page.id]) {
+        if (!state?.data.postList[page.id]) {
             fetchPostDetail(page.id)
         }
     }
