@@ -1,52 +1,56 @@
-import { extractActionFromPath } from "./extract/extraction"
-import { Pages } from "./feature/pages/pages"
-import { pageReducer } from "./feature/pages/reducer"
-import { Posts } from "./feature/posts/Posts"
-import { ModalRoot } from "./feature/ui/Component"
-import { uiReducer } from "./feature/ui/reducer"
-import { Router } from "./shared/router"
-import { Store } from "./shared/store"
+import { handleEffect } from "./render/effact";
+import { render } from "./render/render";
+import { reducer } from "./shared/reducer";
+import { Router } from "./shared/router";
+import { Store } from "./shared/store";
 
-const modalRoot = new ModalRoot()
-modalRoot.mount()
+// ==========================================
+//! [렌더 사이드이펙트 subscribe 분리] 
+//! 페이지는 상태만   ||    fetch는 effect에서
+// ==========================================
+const initState: State = {
+    ui: { loading: false, modal: null, theme: "dark" },
+    data: { postList: [], postDetail: {} },
+    page: { type: "home" }
+}
 
-function reducer(state: AppState, action: Action): AppState {
-    return {
-        ui: uiReducer(state.ui, action),
-        page: pageReducer(state.page, action)
+const store = new Store(initState, reducer)
+let prevPage: PageState | null = null
+
+store.subscribe(() => {
+    const state = store.get()
+
+    console.log("3. SUBSCRIBE RENDER")
+    console.log({ "PREVPAGE": prevPage })
+
+    render(state.page, state)
+})
+
+store.subscribe(() => {
+    const state = store.get()
+
+    if (state.page !== prevPage) {
+        handleEffect(state.page, state)
+        prevPage = state.page
     }
-}
 
-const initState: AppState = {
-    page: { page: "home" },
-    ui: { modal: null }
-}
+    console.log("4. SUBSCRIBE EFFECT")
+    console.log({ "PREVPAGE": prevPage })
+})
 
-const router = new Router()
-export const store = new Store(initState, reducer)
-
-const pages = new Pages()
-const posts = new Posts()
-
-
-
-//3. 이벤트 연결 내부에서 reducer 처리 알림
 export function dispatch(action: Action) {
+
+    console.log("1.DISPATCH")
+    console.log(action)
+
     store.dispatch(action)
 }
 
-//1. 이벤트 발생
-document.addEventListener("click", (e) => {
+// ==========================================
+//! [라우터 생성 페이지 등록예정] 
+// ==========================================
+const router = new Router()
 
-    const target = e.target as HTMLElement
-    const a = target.closest("a")
+router.resolve()
 
-    if (a) {
-        // *라우터 URL 변경 이벤트 발생
-        const route = router.handleLinkClick(e, a)
-        if (!route) return
-        //2. 이벤트 추출 연결
-        extractActionFromPath()
-    }
-
-})
+dispatch({ type: "CLICK_POSTS_PAGE", page: 0 })

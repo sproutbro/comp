@@ -1,11 +1,16 @@
 export class Router {
 
-    private currentPath: string
-
     constructor() {
-        this.currentPath = location.pathname
+
+        document.addEventListener("click", (e) => {
+            const el = (e.target as HTMLElement).closest("a")
+            if (!el) return
+
+            this.handleLinkClick(e, el)
+        })
+
         window.addEventListener("popstate", () => {
-            this.navigate(location.pathname)
+            this.resolve()
         })
     }
 
@@ -28,11 +33,12 @@ export class Router {
     }
 
     navigate(path: string) {
-        if (this.currentPath === path) return
-
-        this.currentPath = path
-
-        history.pushState(null, "", path)
-        return true
+        window.history.pushState({}, "", path);
+        this.resolve()
     }
+
+    resolve() {
+        // dispatch({ type: "SELECT_NAV", nav: "home" })
+    }
+
 }
