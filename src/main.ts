@@ -1,1 +1,4 @@
-import { modal } from "./ui/modal";
+import { addMainButtons, setupLayout } from "./button/layout"
+
+setupLayout()
+addMainButtons()

@@ -1,46 +1,94 @@
-.l-root {
+:root {
+    --bg: #1e1f22;
+    --panel: #25262b;
+    --border: #2f3136;
+    --text: #e6e6e6;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+}
+
+.editor {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background: #f5f6f8;
 }
 
-/* header */
-.l-header {
-    height: 60px;
-    background: #fff;
-    border-bottom: 1px solid #e5e7eb;
+/* 상단 툴 */
+.toolbar {
+    height: 40px;
     display: flex;
+    gap: 8px;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--border);
+    background: #1b1c1f;
 }
 
-/* body */
-.l-body {
+/* 작업 영역 */
+.workspace {
+    flex: 1;
     display: flex;
+}
+
+/* 공통 */
+.editor-area,
+.preview-area {
     flex: 1;
 }
 
-/* aside */
-.l-aside {
-    width: 200px;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
+textarea {
+    width: 100%;
+    height: 100%;
+    background: #1b1c1f;
+    color: #e6e6e6;
+    border: none;
+    outline: none;
     padding: 16px;
+    font-family: monospace;
 }
 
-/* main */
-.l-main {
-    flex: 1;
-    padding: 24px;
-}
-
-/* footer */
-.l-footer {
-    height: 48px;
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
     background: #fff;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
+}
+
+/* =========================
+   🎯 레이아웃 1: CENTER
+========================= */
+
+.layout-center .workspace {
+    justify-content: center;
     align-items: center;
-    padding: 0 16px;
+}
+
+.layout-center .editor-area {
+    width: 800px;
+    height: 80%;
+}
+
+.layout-center .preview-area {
+    display: none;
+}
+
+/* =========================
+   🎯 레이아웃 2: SPLIT
+========================= */
+
+.layout-split .workspace {
+    flex-direction: row;
+}
+
+.layout-split .editor-area {
+    width: 50%;
+}
+
+.layout-split .preview-area {
+    width: 50%;
 }

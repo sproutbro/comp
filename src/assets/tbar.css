@@ -1,0 +1,26 @@
+.tbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: #1b1c1f;
+    border-bottom: 1px solid #2f3136;
+}
+
+.tgroup {
+    display: flex;
+    gap: 4px;
+}
+
+.tbtn {
+    background: #2a2b30;
+    border: 1px solid #333;
+    color: #ddd;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.tbtn:hover {
+    background: #3a3b40;
+}

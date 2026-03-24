@@ -1,0 +1,64 @@
+:root {
+    --bg: #1e1f22;
+    --panel: #25262b;
+    --border: #2f3136;
+    --text: #e6e6e6;
+    --sub: #a0a4ab;
+}
+
+/* 스크롤 깔끔하게 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+/* 기본 */
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+}
+
+/* 레이아웃 */
+.editor {
+    display: flex;
+    height: 100vh;
+}
+
+/* 패널 공통 */
+.panel {
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow: auto;
+}
+
+/* 좌측 (블록) */
+.left {
+    width: 220px;
+    background: var(--panel);
+}
+
+/* 중앙 (에디터) */
+.center {
+    flex: 1;
+    background: #1b1c1f;
+}
+
+/* 우측 (프리뷰) */
+.right {
+    width: 40%;
+    background: #111;
+    border-right: none;
+}
+
+/* 텍스트 느낌 */
+.panel h2 {
+    font-size: 14px;
+    color: var(--sub);
+    margin-bottom: 12px;
+}
