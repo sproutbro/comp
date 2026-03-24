@@ -1,15 +1,22 @@
+
 export function uiReducer(state: UIState, action: Action): UIState {
     switch (action.type) {
-        case "OPEN_MODAL":
+        case "SEL_MODAL":
             return {
                 ...state,
                 modal: action.modal
             }
 
-        case "CLOSE_MODAL":
+        case "SEL_THEME":
             return {
                 ...state,
-                modal: null,
+                theme: action.theme,
+            }
+
+        case "LOADING":
+            return {
+                ...state,
+                loading: action.value
             }
 
         default:

@@ -19,7 +19,7 @@ async function fetchPosts() {
     const res = await fetch("http://localhost:8080/posts")
     const data = await res.json()
 
-    dispatch({ type: "SET_POST_LIST", list: data })
+    dispatch({ type: "FETCH_POST_LIST", list: data })
 }
 
 async function fetchPostDetail(id: number) {
@@ -27,6 +27,6 @@ async function fetchPostDetail(id: number) {
     const res = await fetch(`http://localhost:8080/posts/${id}`)
     const data = await res.json()
 
-    dispatch({ type: "SET_POST_DETAIL", post: data })
+    dispatch({ type: "FETCH_POST_DETAIL", post: data })
 
 }

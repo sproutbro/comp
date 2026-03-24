@@ -2,28 +2,30 @@
 //! [APP STATE] 
 
 // ==========================================
-type State = {
-    ui: UIState
-    page: PageState
-    data: DataState
-}
 
 type Action =
-    | EffectAction
-    | UIAction
-    | PostAction
+    // UI
+    | { type: "SEL_MODAL"; modal: ModalType }
+    | { type: "SEL_THEME"; theme: ThemeType }
+    | { type: "LOADING"; value: boolean }
+
+    // DATA
+    | { type: "FETCH_POST_LIST"; list: Post[] }
+    | { type: "FETCH_POST_DETAIL"; post: Post }
+
+    // PAGE
+    | { type: "CLICK_POST_PAGE"; page: number }
+    | { type: "CLICK_POST_ID"; id: number }
+
 
 // ==========================================
 //! [PAGE STATE | ACTION | TYPE] 
 // ==========================================
-type PostAction =
-    | { type: "SELECT_POST_PAGE"; page: number }
-    | { type: "SELECT_POST_ID"; id: number }
-    | { type: "CLICK_POSTS_PAGE"; page: number }
 
-type Post = {
-    id: number
-    title: string
+type State = {
+    ui: UIState
+    page: PageState
+    data: DataState
 }
 
 type PageState =
@@ -33,25 +35,24 @@ type PageState =
     | { type: "about" }
     | { type: "editor" }
 
-type EffectAction =
-    | { type: "SET_POST_LIST"; list: Post[] }
-    | { type: "SET_POST_DETAIL"; post: Post }
-
-// ==========================================
-//! [EFFECT ACTION | STATE | TYPE]
-// ==========================================
 type DataState = {
     postList: Post[]
     postDetail: Record<number, Post>
 }
 
-// ==========================================
-//! [UI STATE | ACTION | TYPE]
-// ==========================================
 type UIState = {
     modal: ModalType
     theme: ThemeType
     loading: boolean
+}
+
+// ==========================================
+//! [EFFECT ACTION | STATE | TYPE]
+// ==========================================
+
+type Post = {
+    id: number
+    title: string
 }
 
 type ModalType =
@@ -59,7 +60,3 @@ type ModalType =
 
 type ThemeType = "dark" | "light"
 
-type UIAction =
-    | { type: "SEL_MODAL"; modal: ModalType }
-    | { type: "SEL_THEME"; theme: ThemeType }
-    | { type: "LOADING"; value: boolean }

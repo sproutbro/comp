@@ -17,7 +17,7 @@ function PostItem({ post }: { post: Post }) {
         title: post.title,
         onClick: () => {
             dispatch({
-                type: "SELECT_POST_ID",
+                type: "CLICK_POST_ID",
                 id: post.id
             })
         }

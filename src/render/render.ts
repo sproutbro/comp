@@ -1,9 +1,4 @@
-export type PageState =
-    | { type: "home" }
-    | { type: "posts"; page: number }
-    | { type: "detail"; id: number }
-    | { type: "about" }
-    | { type: "editor" }
+
 
 export function render(page: PageState, state: State) {
 
